@@ -53,15 +53,15 @@ public class RestApiController {
 			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		}	
 	}
-	//TODO: Find Out why this doesnt work.
+	
 	@RequestMapping(value = "/users/email/{email}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<User> getUserEmail(@PathVariable("email") String email){
 		List<User> users = (List<User>) userRepository.findAll();
-		System.out.println(email);
+		//System.out.println(email);
 		for(User u: users) {
-			System.out.println(u.getEmail());
-			if(u.getEmail()== email) {
+			//System.out.println(u.getEmail());
+			if(u.getEmail().contains(email)) {
 				return new ResponseEntity<User> (u, HttpStatus.OK);
 			}
 		}
