@@ -31,19 +31,29 @@ public class User {
 	@Column(name = "email", nullable= false, unique = true)
 	private String email;
 	@JsonProperty
+	@Column(name = "home_number", nullable= true)
+	private String homeNo;
+	@JsonProperty
+	@Column(name = "mobile_number", nullable= true)
+	private String mobileNo;
+	@JsonProperty
 	@Column(name = "fullname", nullable= false)
 	private String fullname;
 	
 	public User() {}
 	
-	public User(String fname, String lname, String email) {
+	public User(String fname, String lname, String email, String homeNo, String mobileNo) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
+		this.homeNo = homeNo;
+		this.mobileNo= mobileNo;
 		this.fullname = fname + " " + lname;
 	}
 	
+	
+
 	
 
 	public Long getId() {
@@ -77,6 +87,22 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getHomeNo() {
+		return homeNo;
+	}
+
+	public void setHomeNo(String homeNo) {
+		this.homeNo = homeNo;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
 
 	public String getName() {
 		return fullname;
@@ -88,9 +114,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", name=" + fullname + "]";
-	}
-
+		return "User [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", homeNo=" + homeNo
+				+ ", mobileNo=" + mobileNo + ", fullname=" + fullname + "]";
+	}	
 	
 	
 	

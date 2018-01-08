@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Service Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    
+</head>
+<body>
+	<div data-role="page" id= "searchResults">
+		<div data-role="header">
+    		<div th:replace= "fragments/header :: header"></div>
+    	</div>
+    <div data-role="content">		
+		<div class= "container-fluid">
+			<div class='content-wrapper'>
+    			<div class='row'>
+      				<div class= "col-md-4"></div>
+      				<div class='col-xs-12 col-sm-12 col-md-8 col-lg-8'>
+      					<h1><span th:text="${appName}"> Eamonns Service App</span> </h1>
+      					<div>
+      						<h3>Search Results</h3>
+      							<p th:text= ${not_found}></p>
+      							<p>Registration: <span id="reg" th:text= ${reg}></span></p>
+      							<p>Make: <span th:text= ${make}></span></p>
+      							<p>Model: <span th:text= ${model}></span></p>
+      							<p>Last Service <span th:text= ${service}></span></p>
+      							<p>Last MOT: <span th:text= ${mot}></span></p>
+      					</div>
+						<div class= "col-md-4">
+							<Button onclick="location.href='/'">Back</Button>
+							<Button onclick= "getServices()">More Details</Button>
+							<div id= "serviceDetails" style="display:none">
+								<h3>Services Details</h3>
+							</div>
+						</div>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+	</div>
+	</div>	
+	<script th:inline= "javascript" type="text/javascript">
+	/*<![CDATA[*/
+
+    	var reg = [[${reg}]];
+
+	/*]]>*/
+		function getServices(){
+			
+			//window.alert(reg);
+			$.ajax({
+				url: 'http://localhost:8080/api/service/vehicle/'+reg,
+				type: 'GET',
+				success: function(data){
+					window.alert(data);
+				},
+				error: function(data){
+					window.alert("Error: " + data);
+				}
+			});
+			var x = document.getElementById("serviceDetails");
+			if(x.style.display=== "none"){
+				x.style.display= "block";
+			}else{
+				x.style.display= "none";
+			}
+		}
+	</script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

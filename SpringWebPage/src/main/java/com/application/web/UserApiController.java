@@ -1,8 +1,8 @@
 package com.application.web;
 
-import java.util.ArrayList;
-
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import com.application.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api")
-public class RestApiController {
+public class UserApiController {
 
 	//TODO: Add Services
 	//private List<User> users = new ArrayList<User>();
@@ -54,18 +54,23 @@ public class RestApiController {
 		}	
 	}
 	
-	@RequestMapping(value = "/users/email/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/email", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<User> getUserEmail(@PathVariable("email") String email){
-		List<User> users = (List<User>) userRepository.findAll();
-		//System.out.println(email);
-		for(User u: users) {
-			//System.out.println(u.getEmail());
-			if(u.getEmail().contains(email)) {
+	public ResponseEntity<User> getUserEmail(HttpServletRequest request){
+		
+		String email = request.getParameter("email");
+		if(email != null) {
+			//System.out.println(email);
+			User u = userRepository.findByEmail(email);
+			if(u != null) {
 				return new ResponseEntity<User> (u, HttpStatus.OK);
-			}
+			}else {
+				return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
+			}	
 		}
-		return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
+		
+		
 	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST, consumes = "application/json")

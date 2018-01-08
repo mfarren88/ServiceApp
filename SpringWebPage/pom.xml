@@ -76,6 +76,15 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
         </dependency>
+        <dependency>
+   			<groupId>net.sourceforge.nekohtml</groupId>
+   			<artifactId>nekohtml</artifactId>
+   			<version>1.9.21</version>
+		</dependency>
+        <dependency>
+        	<groupId>mysql</groupId>
+        	<artifactId>mysql-connector-java</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
